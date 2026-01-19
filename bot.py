@@ -6,9 +6,14 @@ import telebot
 from openai import OpenAI
 from openai import RateLimitError, APIError, APIConnectionError, AuthenticationError
 
-BOT_TOKEN = os.getenv("BOT_TOKEN", "")
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
+if not BOT_TOKEN:
+    raise RuntimeError("BOT_TOKEN is not set or empty")
+
+if not OPENAI_API_KEY:
+    raise RuntimeError("OPENAI_API_KEY is not set or empty")
 
 bot = telebot.TeleBot(BOT_TOKEN)
 client = OpenAI(api_key=OPENAI_API_KEY)
